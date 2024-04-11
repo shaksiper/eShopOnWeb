@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -55,26 +53,21 @@ public class OrderListPagedEndpoint : IEndpoint<IResult, ListPagedOrderRequest, 
         IRepository<Order> orderRepository
     )
     {
-        await Task.Delay(1000);
+        /*await Task.Delay(1000);*/
         var response = new ListPagedOrderResponse(request.CorrelationId());
 
-        var filterSpec = new OrderFilterSpecification(request.BuyerId, request.OrderDate);
+        var filterSpec = new OrderFilterSpecification(request.OrderDate);
         int totalItems = await orderRepository.CountAsync(filterSpec);
 
         var pagedSpec = new OrderFilterPaginatedSpecification(
             skip: request.PageIndex * request.PageSize,
             take: request.PageSize,
-            orderDate: request.OrderDate,
-            BuyerId: request.BuyerId
+            orderDate: request.OrderDate
         );
 
         var items = await orderRepository.ListAsync(pagedSpec);
 
         response.Orders.AddRange(items.Select(_mapper.Map<OrderDto>));
-        /*foreach (OrderDto order in response.Orders)*/
-        /*{*/
-        /*    order.PictureUri = _uriComposer.ComposePicUri(order.PictureUri);*/
-        /*}*/
 
         if (request.PageSize > 0)
         {
