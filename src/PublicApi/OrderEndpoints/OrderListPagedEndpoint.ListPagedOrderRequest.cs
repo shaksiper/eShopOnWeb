@@ -7,9 +7,9 @@ public class ListPagedOrderRequest : BaseRequest
     public int PageSize { get; init; }
     public int PageIndex { get; init; }
     public DateTimeOffset? OrderDate { get; init; }
-    public Guid? BuyerId { get; init; }
+    public string? BuyerId { get; init; }
 
-    public ListPagedOrderRequest(int? pageSize, int? pageIndex, DateTimeOffset? orderDate, Guid? userId)
+    public ListPagedOrderRequest(int? pageSize, int? pageIndex, DateTimeOffset? orderDate, string? userId)
     {
         PageSize = pageSize ?? 0;
         PageIndex = pageIndex ?? 0;

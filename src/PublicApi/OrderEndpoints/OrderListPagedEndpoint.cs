@@ -36,7 +36,7 @@ public class OrderListPagedEndpoint : IEndpoint<IResult, ListPagedOrderRequest, 
                     int? pageSize,
                     int? pageIndex,
                     DateTimeOffset? orderDate,
-                    Guid? BuyerId,
+                    string? BuyerId,
                     IRepository<Order> itemRepository
                 ) =>
                 {
