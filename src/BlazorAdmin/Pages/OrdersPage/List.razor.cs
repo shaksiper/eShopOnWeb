@@ -11,7 +11,7 @@ public partial class List : BlazorComponent
     [Microsoft.AspNetCore.Components.Inject]
     public IOrdersService OrdersService { get; set; }
 
-    private List<Orders> orders = new List<Orders>();
+    private List<Order> orders = new List<Order>();
 
     private Edit EditComponent { get; set; }
     private Details DetailsComponent { get; set; }

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 namespace BlazorShared.Models;
 
 /// <summary>
-/// Orders model
+/// Order model
 /// </summary>
-public class Orders
+public class Order
 {
     public int id { get; set; }
     public string buyerId { get; set; }
 
     public DateTime orderDate { get; set; }
-    public IReadOnlyCollection<OrderItem> orderItems { get; set; }
-    public decimal Total { get; set; }
+    /*public IReadOnlyCollection<OrderItem> orderItems { get; set; }*/
+    public decimal total { get; set; }
 }

@@ -18,7 +18,7 @@ public class OrdersService : IOrdersService
         _logger = logger;
     }
 
-    public async Task<Orders> Edit(Orders orders)
+    public async Task<Order> Edit(Order orders)
     {
         return (await _httpService.HttpPut<EditOrdersResult>(ORDERS_ENDPOINT, orders)).Order;
     }
@@ -31,7 +31,7 @@ public class OrdersService : IOrdersService
     /*    ).Status;*/
     /*}*/
 
-    public async Task<Orders> GetById(int id)
+    public async Task<Order> GetById(int id)
     {
         _logger.LogInformation($"Fetching Order [{id}] from API.");
         var ordersGetTask = _httpService.HttpGet<EditOrdersResult>($"{ORDERS_ENDPOINT}/{id}");
@@ -41,7 +41,7 @@ public class OrdersService : IOrdersService
         return order;
     }
 
-    public async Task<List<Orders>> ListPaged(int pageSize)
+    public async Task<List<Order>> ListPaged(int pageSize)
     {
         _logger.LogInformation("Fetching catalog Order from API.");
 
@@ -58,12 +58,14 @@ public class OrdersService : IOrdersService
         return orders;
     }
 
-    public async Task<List<Orders>> List()
+    public async Task<List<Order>> List()
     {
         _logger.LogInformation("Fetching Order from API.");
 
         var orderListTask = _httpService.HttpGet<PagedOrdersResponse>(ORDERS_ENDPOINT);
         var orders = (await orderListTask).Orders;
+
+        _logger.LogInformation($"Fetching Order [{orders.Count}] from API.");
         return orders;
     }
 }

@@ -23,6 +23,7 @@ else
         <tr>
             <th></th>
             <th>Id</th>
+            <th>Total</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -34,6 +35,7 @@ else
                         img
                     </td>
                     <td>@order.id</td>
+                    <td>@order.total</td>
                     <td>
                         <button @onclick="@(() => EditClick(order.id))" @onclick:stopPropagation="true" class="btn btn-primary">
                             Edit

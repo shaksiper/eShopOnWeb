@@ -6,8 +6,8 @@ namespace BlazorShared.Interfaces;
 
 public interface IOrderItemService
 {
-    Task<Orders> Edit(Orders orders);
-    Task<Orders> GetById(int id);
-    Task<List<Orders>> ListPaged(int pageSize);
-    Task<List<Orders>> List();
+    Task<Order> Edit(Order orders);
+    Task<Order> GetById(int id);
+    Task<List<Order>> ListPaged(int pageSize);
+    Task<List<Order>> List();
 }

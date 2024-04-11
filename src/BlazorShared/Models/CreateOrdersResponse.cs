@@ -2,5 +2,5 @@
 
 public class CreateOrdersResponse
 {
-    public Orders Orders { get; set; } = new Orders();
+    public Order Orders { get; set; } = new Order();
 }

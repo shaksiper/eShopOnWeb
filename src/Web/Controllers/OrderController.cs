@@ -36,7 +36,7 @@ public class OrderController : Controller
 
         if (viewModel == null)
         {
-            return BadRequest("No such order found for this user.");
+            return BadRequest("No such Order found for this user.");
         }
 
         return View(viewModel);

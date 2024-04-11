@@ -2,5 +2,5 @@
 
 public class EditOrdersResult
 {
-    public Orders Order { get; set; } = new Orders();
+    public Order Order { get; set; } = new Order();
 }
