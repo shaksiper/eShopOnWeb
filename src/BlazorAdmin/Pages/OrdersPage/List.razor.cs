@@ -37,10 +37,4 @@ public partial class List : BlazorComponent
     {
         await OrdersService.Approve(id);
     }
-
-    private async Task ReloadCatalogItems()
-    {
-        orders = await OrdersService.List();
-        StateHasChanged();
-    }
 }
