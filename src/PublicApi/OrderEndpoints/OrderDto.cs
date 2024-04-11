@@ -11,5 +11,6 @@ public class OrderDto
     public DateTimeOffset OrderDate { get; set; }
     public Address ShipToAddress { get; set; }
     public IReadOnlyCollection<OrderItem> OrderItems { get; set; }
+    public string Status { get; set; }
     public decimal Total { get; set; }
 }

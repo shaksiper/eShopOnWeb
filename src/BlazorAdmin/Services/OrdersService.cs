@@ -58,8 +58,9 @@ public class OrdersService : IOrdersService
         if (order is null)
             return null;
 
+        order.status = "Approved";
 
-        return null;
+        return (await _httpService.HttpPut<EditOrdersResult>(ORDERS_ENDPOINT, order)).Order;
     }
 
     public async Task<List<Order>> List()

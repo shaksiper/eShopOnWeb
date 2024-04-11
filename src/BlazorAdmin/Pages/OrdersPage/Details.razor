@@ -54,9 +54,12 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
-                <button class="btn btn-primary" @onclick="ApproveClick">
-                    Approve
-                </button>
+                @if (_order.status != "Approved")
+                {
+                    <button class="btn btn-primary" @onclick="ApproveClick">
+                        Approve
+                    </button>
+                }
             </div>
         </div>
     </div>
@@ -70,7 +73,7 @@
 @code {
 
     [Parameter]
-    public EventCallback<int> OnEditClick { get; set; }
+    public EventCallback<int> OnApproveClick { get; set; }
 
     private string _modalDisplay = "none;";
     private string _modalClass = "";
@@ -78,7 +81,7 @@
     private Order _order = new Order();
     public async Task ApproveClick()
     {
-        await OnEditClick.InvokeAsync(_order.id);
+        await OnApproveClick.InvokeAsync(_order.id);
         await Close();
     }
 

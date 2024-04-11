@@ -12,5 +12,6 @@ public class Order
     public string buyerId { get; set; }
     public DateTime orderDate { get; set; }
     public IReadOnlyCollection<OrderItem> orderItems { get; set; }
+    public string status { get; set; }
     public decimal total { get; set; }
 }

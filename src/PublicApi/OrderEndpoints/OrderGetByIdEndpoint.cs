@@ -54,7 +54,8 @@ public class OrderGetByIdEndpoint : IEndpoint<IResult, GetByIdOrderRequest, IRep
             OrderDate = item.OrderDate,
             ShipToAddress = item.ShipToAddress,
             OrderItems = item.OrderItems,
-            Total = item.Total()
+            Total = item.Total(),
+            Status = item.Status
         };
         return Results.Ok(response);
     }

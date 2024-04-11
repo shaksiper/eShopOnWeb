@@ -49,9 +49,7 @@ public class UpdateOrderEndpoint : IEndpoint<IResult, UpdateOrderRequest, IRepos
             return Results.NotFound();
         }
 
-        /*Order.OrderDetails details =*/
-        /*    new(request.Name, request.Description, request.Price);*/
-        /*existingItem.UpdateDetails(details);*/
+        existingItem.UpdateStatus(request.Status);
 
         await orderRepository.UpdateAsync(existingItem);
 
@@ -60,7 +58,8 @@ public class UpdateOrderEndpoint : IEndpoint<IResult, UpdateOrderRequest, IRepos
             Id = existingItem.Id,
             BuyerId = existingItem.BuyerId,
             OrderDate = existingItem.OrderDate,
-            ShipToAddress = existingItem.ShipToAddress
+            ShipToAddress = existingItem.ShipToAddress,
+            Status = existingItem.Status
         };
         response.Order = dto;
         return Results.Ok(response);
