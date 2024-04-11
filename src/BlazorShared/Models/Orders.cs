@@ -10,8 +10,7 @@ public class Order
 {
     public int id { get; set; }
     public string buyerId { get; set; }
-
     public DateTime orderDate { get; set; }
-    /*public IReadOnlyCollection<OrderItem> orderItems { get; set; }*/
+    public IReadOnlyCollection<OrderItem> orderItems { get; set; }
     public decimal total { get; set; }
 }

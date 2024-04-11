@@ -13,7 +13,7 @@ public partial class List : BlazorComponent
 
     private List<Order> orders = new List<Order>();
 
-    private Edit EditComponent { get; set; }
+    /*private Edit EditComponent { get; set; }*/
     private Details DetailsComponent { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -33,9 +33,9 @@ public partial class List : BlazorComponent
         await DetailsComponent.Open(id);
     }
 
-    private async Task EditClick(int id)
+    private async Task ApproveClick(int id)
     {
-        await EditComponent.Open(id);
+        await OrdersService.Approve(id);
     }
 
     private async Task ReloadCatalogItems()

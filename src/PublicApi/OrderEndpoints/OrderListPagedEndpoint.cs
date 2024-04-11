@@ -59,6 +59,8 @@ public class OrderListPagedEndpoint : IEndpoint<IResult, ListPagedOrderRequest, 
         var filterSpec = new OrderFilterSpecification(request.OrderDate);
         int totalItems = await orderRepository.CountAsync(filterSpec);
 
+        // TODO: exclude OrderItems in List of order (OrderDto), since it is unnecessary detail in the list
+        // But needed for Total price information for each order
         var pagedSpec = new OrderFilterPaginatedSpecification(
             skip: request.PageIndex * request.PageSize,
             take: request.PageSize,

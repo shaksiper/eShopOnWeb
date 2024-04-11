@@ -10,14 +10,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Details @_item.id</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Details @_order.id</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                @if (_item == null)
+                @if (_order == null)
                 {
                     <Spinner></Spinner>
                 }
@@ -29,31 +29,33 @@
 
                             <dl class="col-md-12 dl-horizontal">
                                 <dt>
-                                    Id
-                                </dt>
-
-                                <dd>
-                                    @_item.id
-                                </dd>
-                                <dt>
                                     Order Date
                                 </dt>
 
                                 <dd>
-                                    @_item.orderDate
+                                    @_order.orderDate
                                 </dd>
 
                             </dl>
+
                         </div>
 
                     </div>
+
+                    @if (_order.orderItems != null)
+                    {
+                        foreach (var item in _order.orderItems)
+                        {
+                            <Items Item="@item" />
+                        }
+                    }
                 }
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="Close">Close</button>
-                <button class="btn btn-primary" @onclick="EditClick">
-                    Edit
+                <button class="btn btn-primary" @onclick="ApproveClick">
+                    Approve
                 </button>
             </div>
         </div>
@@ -73,11 +75,10 @@
     private string _modalDisplay = "none;";
     private string _modalClass = "";
     private bool _showDetailsModal = false;
-    private Order _item = new Order();
-
-    public async Task EditClick()
+    private Order _order = new Order();
+    public async Task ApproveClick()
     {
-        await OnEditClick.InvokeAsync(_item.id);
+        await OnEditClick.InvokeAsync(_order.id);
         await Close();
     }
 
@@ -88,7 +89,7 @@
 
         await new Css(JSRuntime).HideBodyOverflow();
 
-        _item = await OrdersService.GetById(id);
+        _order = await OrdersService.GetById(id);
 
         _modalDisplay = "block;";
         _modalClass = "Show";

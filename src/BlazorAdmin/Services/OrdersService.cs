@@ -48,14 +48,18 @@ public class OrdersService : IOrdersService
         var orderListTask = _httpService.HttpGet<PagedOrdersResponse>(
             $"{ORDERS_ENDPOINT}?PageSize={pageSize}"
         );
-        /*await orderListTask;*/
         var orders = (await orderListTask).Orders;
-        /*foreach (var item in Order)*/
-        /*{*/
-        /*    item.CatalogBrand = brands.FirstOrDefault(b => b.Id == item.CatalogBrandId)?.Name;*/
-        /*    item.CatalogType = types.FirstOrDefault(t => t.Id == item.CatalogTypeId)?.Name;*/
-        /*}*/
         return orders;
+    }
+
+    public async Task<Order> Approve(int id)
+    {
+        Order? order = await GetById(id);
+        if (order is null)
+            return null;
+
+
+        return null;
     }
 
     public async Task<List<Order>> List()
