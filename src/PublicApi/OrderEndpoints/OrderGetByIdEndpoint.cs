@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.eShopWeb.ApplicationCore.Entities;
 using Microsoft.eShopWeb.ApplicationCore.Entities.OrderAggregate;
 using Microsoft.eShopWeb.ApplicationCore.Interfaces;
+using Microsoft.eShopWeb.ApplicationCore.Specifications;
 using MinimalApi.Endpoint;
 
 namespace Microsoft.eShopWeb.PublicApi.OrderEndpoints;
@@ -39,7 +41,9 @@ public class OrderGetByIdEndpoint : IEndpoint<IResult, GetByIdOrderRequest, IRep
     {
         var response = new GetByIdOrderResponse(request.CorrelationId());
 
-        var item = await orderRepository.GetByIdAsync(request.OrderId);
+        // get by spec with OrderItems instead of just getting the order by ID
+        var spec = new OrderWithItemsByIdSpec(request.OrderId);
+        var item = await orderRepository.FirstOrDefaultAsync(spec);
         if (item is null)
             return Results.NotFound();
 
@@ -49,6 +53,8 @@ public class OrderGetByIdEndpoint : IEndpoint<IResult, GetByIdOrderRequest, IRep
             BuyerId = item.BuyerId,
             OrderDate = item.OrderDate,
             ShipToAddress = item.ShipToAddress,
+            OrderItems = item.OrderItems,
+            Total = item.Total()
         };
         return Results.Ok(response);
     }
